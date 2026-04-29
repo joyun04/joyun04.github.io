@@ -1,72 +1,561 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <title>Access Restricted</title>
-  <style>
-    body {
-      margin: 0;
-      background: #0d0d0d;
-      color: #eaeaea;
-      font-family: 'Courier New', monospace;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<title>Neon Portfolio</title>
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+<style>
+body {
+  margin: 0;
+  background: #050505;
+  color: #eaeaea;
+  font-family: 'Segoe UI', sans-serif;
+  scroll-behavior: smooth; /* 🔥 부드러운 스크롤 */
+}
 
-    .container {
-      max-width: 600px;
-    }
+.header {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  background: rgba(5,5,5,0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid #111;
+  z-index: 1000;
+}
 
-    h1 {
-      font-size: 40px;
-      margin-bottom: 10px;
-      letter-spacing: 2px;
-    }
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: #8a2be2;
+}
 
-    p {
-      color: #888;
-      margin-bottom: 30px;
-    }
+.nav a {
+  margin-left: 20px;
+  color: #aaa;
+  text-decoration: none;
+  position: relative;
+}
 
-    .status {
-      color: #00ff9c;
-      margin-bottom: 20px;
-    }
+.nav a:hover { color: #fff; }
 
-    .btn {
-      border: 1px solid #00ff9c;
-      padding: 10px 20px;
-      color: #00ff9c;
-      text-decoration: none;
-      transition: 0.3s;
-    }
+.nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #8a2be2;
+  transition: 0.3s;
+}
 
-    .btn:hover {
-      background: #00ff9c;
-      color: #000;
-    }
+.nav a:hover::after { width: 100%; }
 
-    .blink {
-      animation: blink 1s infinite;
-    }
+.main {
+  padding: 40px;
+  max-width: 1000px;
+  margin: auto;
+}
 
-    @keyframes blink {
-      50% { opacity: 0; }
-    }
-  </style>
+.section {
+  margin-top: 80px; /* 🔥 섹션 간 간격 */
+}
+
+.banner-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+.banner-grid:hover .panel img {
+  filter: brightness(0.4);
+}
+
+.banner-grid .panel:hover img {
+  transform: scale(1.08);
+  filter: brightness(1);
+}
+
+.panel {
+  overflow: hidden;
+  position: relative;
+}
+
+.panel img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.panel:hover img {
+  transform: scale(1.1);
+}
+
+.card {
+  background: #0d0d0d;
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #111;
+  transition: 0.3s;
+}
+
+.card:hover {
+  border-color: #8a2be2;
+  box-shadow: 0 0 20px #8a2be2;
+  transform: translateY(-5px);
+}
+
+.date {
+  color: #8a2be2;
+  font-size: 12px;
+}
+
+.title-item {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.actions a {
+  color: #ff00cc;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+.wave {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #8a2be2, #ff00cc, transparent);
+  margin: 20px 0;
+}
+.about-title {
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  margin: 80px 0 40px;
+  line-height: 1.5;
+
+  /* 네온 느낌 */
+  color: #fff;
+  text-shadow: 
+    0 0 5px #8a2be2,
+    0 0 10px #8a2be2,
+    0 0 20px #ff00cc;
+
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* 전체 슬라이더 */
+.slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+/* 스크롤바 숨김 */
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+/* 각 슬라이드 */
+.slide {
+  min-width: 100vw;
+  height: 500px;
+  position: relative;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #050505;
+}
+
+/* 이미지 */
+.slide img {
+  width: 60%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 20px;
+  transition: 0.6s;
+}
+
+/* 프로젝트 css */
+/* 텍스트 */
+.carousel {
+  overflow: hidden;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+.track {
+  display: flex;
+  gap: 30px;
+  width: max-content;
+}
+
+/* 카드 */
+.card-item {
+  width: 300px;
+  flex-shrink: 0;
+  background: #0d0d0d;
+  border-radius: 20px;
+  padding: 15px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.card-item img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+/* 가운데 강조 느낌 */
+.card-item:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 25px #8a2be2;
+}
+
+/* 핵심: 무한 이동 */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+/* about에 있는 타이틀 css */
+/* 핵심 단어 하이라이트 */
+.about-title {
+  font-size: 34px;
+  font-weight: 700;
+  text-align: center;
+  margin: 80px 0 40px;
+  line-height: 1.6;
+  color: #ffffff;
+}
+
+/* 핵심 강조 */
+.about-title span {
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.sub-text {
+  color: #ffffff;   /* 흰색 계열 */
+  font-size: 30px;  /* 작게 */
+  font-weight: 800; /* 얇게 */
+  text-shadow: none; /* 네온 제거 */
+  opacity:1 ;      /* 살짝 힘 빼기 */
+}
+/* 살짝 인터랙션 */
+.about-title:hover {
+  transform: translateY(-2px);
+  transition: 0.3s;
+}
+
+/* 프로필내용 */
+.profile-container {
+  display: flex;
+  gap: 80px;
+  margin-top: 50px;
+  align-items: flex-start;
+}
+
+/* 좌측 */
+.profile-left {
+  width: 260px;
+  text-align: center;
+}
+
+.profile-img {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.profile-name {
+  margin-bottom: 15px;
+}
+
+.profile-info-box {
+  font-size: 14px;
+  color: #aaa;
+  line-height: 1.8;
+}
+
+/* 우측 */
+.profile-right {
+  flex: 1;
+}
+
+/* 타이틀 */
+.resume-block {
+  margin-bottom: 40px;
+}
+
+.resume-block h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+/* 리스트 스타일 */
+.resume-block ul {
+  list-style: none;
+  padding: 0;
+}
+
+.resume-block li {
+  margin-bottom: 10px;
+  color: #ccc;
+}
+
+/* 연도 강조 */
+.resume-block li span {
+  display: inline-block;
+  width: 100px;
+  color: #888;
+}
+
+/* 소개글 */
+.about-desc {
+  margin-top: 60px;
+}
+
+/* 🔥 스크롤 등장 효과 */
+.fade-up {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: all 0.8s ease;
+}
+
+.fade-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+</style>
 </head>
 
 <body>
-  <div class="container">
-    <h1>ACCESS DENIED<span class="blink">_</span></h1>
-    <p>This site is currently under construction.</p>
 
-    <div class="status">● STATUS: ACTIVE DEVELOPMENT</div>
+<header class="header">
+  <div class="logo">YUNJO</div>
+  <nav class="nav">
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#skills">Skills</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
-    <a href="https://github.com/아이디" class="btn">VIEW GITHUB</a>
+<main class="main">
+
+  <!-- 배너 -->
+  <div class="banner-grid">
+    <div class="panel"><img src="/image/imag1.png"></div>
+    <div class="panel"><img src="/image/imag2.png"></div>
+    <div class="panel"><img src="/image/imag3.png"></div>
   </div>
+
+  <!-- Projects -->
+<section id="projects" class="section">
+  <h1>Projects</h1>
+    <div id="abouttitle" class="about-title fade-up">
+    <span class="sub-text">AI는 기능이 아니라 경험입니다<br></span>
+    2D를 넘어, 3D로 살아 움직이는 서비스를 설계합니다.
+    </div>
+  <div class="wave"></div>
+
+  <div class="carousel">
+  <div class="track">
+    
+    <div class="card-item">
+      <img src="/image/imag1.png">
+      <h3>AI 연애 시뮬레이션</h3>
+      <p>LLM 기반 대화형 시뮬레이션 서비스로, 연인과 대화하는 듯한 감정적 경험을 제공하는 AI 인터랙션 시스템입니다.
+네이버 Clova 기반 경량 LLM을 활용해 온디바이스 환경에서도 동작하도록 최적화했으며, 파인튜닝으로 연인 대화 스타일을 학습시켰습니다.
+감정 분석을 통해 사용자 상태에 따라 응답 톤을 조절하고, 2D 라이브 모델링으로 시각적 몰입감을 강화했습니다.</p>
+    </div>
+
+    <div class="card-item">
+      <img src="/image/imag2.png">
+      <h3>서울시 보행량 예측 모델링</h3>
+      <p>서울시 보행량 데이터를 기반으로 건축 및 사회·경제적 요인이 변화했을 때 가로 단위 보행량 변화를 예측하는 머신러닝 모델을 개발했습니다.
+LightGBM 기반 모델을 활용해 주요 변수 중요도를 반영하고 성능을 최적화하여 예측 정확도를 개선했습니다.
+해당 연구는 도시 공간 변화와 보행 행태 간 관계를 정량적으로 분석한 모델로 특허 출원까지 진행되었습니다. </p>
+    </div>
+
+    <div class="card-item">
+      <img src="/image/imag3.png">
+      <h3> AI 자세 교정</h3>
+      <p>MediaPipe를 활용해 관절 포인트를 추출하고 스쿼트, 런지 등 운동 동작의 관절 각도를 분석하는 자세 교정 서비스를 개발했습니다.
+올바른 자세 판별을 위해 머신러닝 기반 앙상블 모델을 파인튜닝하여 자세 정확도를 분류하고, 실시간 피드백이 가능하도록 설계했습니다.
+또한 분석 결과를 자동으로 보고서화하고 음성 피드백 기능을 추가해 사용자 경험을 강화했습니다</p>
+    </div>
+
+  </div>
+</div>
+
+  </div>
+</section>
+
+  <!-- About -->
+ <section id="about" class="section">
+  <h1>About</h1>
+  <div class="wave"></div>
+
+<div id="abouttitle" class="about-title fade-up">
+  데이터와 AI로 <span>눈에 보이는 서비스</span>를 만드는 개발자
+</div>
+
+    <div class="profile-container fade-up">
+    <!-- 좌측 -->
+    <div class="profile-left tilt" data-aos="fade-right">
+    <img src=".vscode/image/profile.png" alt="profile" class="profile-img">
+      <h2 class="profile-name">YUNJO</h2>
+
+      <div class="profile-info-box">
+        <p>📧 email@example.com</p>
+        <p>📱 010-1234-5678</p>
+        <p>🌐 www.portfolio.com</p>
+      </div>
+    </div>
+
+    <!-- 우측 -->
+    <div class="profile-right">
+
+      <div class="resume-block">
+        <h3>Experience</h3>
+        <ul>
+          <li><span>2026</span> AI 서비스 개발 프로젝트</li>
+          <li><span>2025</span> 데이터 분석 인턴</li>
+        </ul>
+      </div>
+
+      <div class="resume-block">
+        <h3>Education</h3>
+        <ul>
+          <li><span>2020 - 2024</span> 한양대학교 도시공학</li>
+        </ul>
+      </div>
+
+      <div class="resume-block">
+        <h3>Awards</h3>
+        <ul>
+          <li><span>2025</span> 데이터 분석 공모전 수상</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 소개글 따로 분리 -->
+<div class="about-desc card fade-up">
+<p>
+데이터 분석을 넘어, 실제로 동작하는 AI 서비스를 구현하는 개발자입니다.
+</p>
+
+<p>
+공간 데이터와 AI 기술을 기반으로 사용자가 직접 체감할 수 있는 결과를 만드는 데 집중하고 있습니다.
+</p>
+
+<p>
+자세 교정, 대화형 시뮬레이션 등 인터랙티브한 서비스를 개발하며
+데이터를 현실의 경험으로 연결하고 있습니다.
+</p>
+  </div>
+
+</section>
+
+  <!-- Skills (추가 추천) -->
+  <section id="skills" class="section">
+    <h1>Skills</h1>
+    <div class="wave"></div>
+
+    <div class="card">
+      R / Python / Pandas / GeoPandas / Folium / Machine Learning / LLM
+    </div>
+  </section>
+
+  <!-- Contact (추가 추천) -->
+  <section id="contact" class="section">
+    <h1>Contact</h1>
+    <div class="wave"></div>
+
+    <div class="card">
+      <p>Email: your@email.com</p>
+      <p>GitHub: github.com/yourname</p>
+    </div>
+  </section>
+
+</main>
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 800,
+    once: true
+  });
+</script>
+<script>
+VanillaTilt.init(document.querySelectorAll(".tilt"), {
+  max: 10,          // 기울기 강도
+  speed: 400,
+  glare: true,      // 빛 반사 효과
+  "max-glare": 0.2
+});
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("show");
+    }
+  });
+}, {
+  threshold: 0.2
+});
+
+document.querySelectorAll(".fade-up").forEach(el => {
+  observer.observe(el);
+});
+
+// 프로젝트 슬라이드 js 
+const track = document.querySelector(".track");
+
+// 🔥 1. 카드 복제 (무한용)
+track.innerHTML += track.innerHTML;
+
+// 🔥 2. 전체 길이 계산
+let scrollWidth = track.scrollWidth / 2;
+
+let position = 0;
+
+function animate() {
+  position -= 0.5; // 속도 (작을수록 느림)
+
+  // 🔥 끝까지 가면 순간 점프 (끊김 없음 핵심)
+  if (Math.abs(position) >= scrollWidth) {
+    position = 0;
+  }
+
+  track.style.transform = `translateX(${position}px)`;
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+</script>
 </body>
 </html>
