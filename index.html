@@ -44,9 +44,9 @@ body {
 
 /* MAIN */
 .main {
-  padding: 40px;
-  max-width: 1000px;
+  max-width: 1400px;
   margin: auto;
+  padding: 40px 60px;
 }
 
 .section {
@@ -181,35 +181,107 @@ body {
 /* PROJECTS */
 .carousel {
   overflow: hidden;
+  padding: 0 20px;
   width: 100%;
 }
 
 .track {
-  display: flex;
-  gap: 30px;
-  width: max-content;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 50px; /* 🔥 기존 30 → 50~70 추천 */
 }
-
 /* CARD */
 .card-item {
-  width: 280px;
+  width: 100%;
+  max-width: 1200px;
   background: #0d0d0d;
-  border-radius: 20px;
-  padding: 15px;
+  border-radius: 24px;
+  padding:  20px;
+  overflow: hidden;
   cursor: pointer;
   transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+
+
+}
+
+/* 이미지 영역 (이상하면 삭제)*/
+.card-img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #111;
+}
+.card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+/* 텍스트 영역 */
+.card-body {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .card-item:hover {
-  transform: scale(1.03);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(138, 43, 226, 0.25);
+}
+
+.card-item:hover img {
+  transform: scale(1.1);
+}
+
+/* 긴 글 처리 */
+.card-desc {
+  font-size: 13px;
+  color: #aaa;
+  line-height: 1.6;
+
+  /* 핵심: 기본은 3줄 제한 */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 이상하면삭제 */
+
+.card-item:hover {
+  transform: scale(1.06);
   box-shadow: 0 0 25px #8a2be2;
 }
 
 .card-item img {
   width: 100%;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 15px;
+  height: 200px;
+  object-fit: contain;
+  background: #111;
+}
+.banner-grid:hover .panel img {
+  filter: brightness(0.4);
+  transition: 0.4s ease;
+}
+.banner-grid .panel:hover img {
+  filter: brightness(1);
+  transform: scale(1.05);
+}
+.panel img {
+  transition: transform 0.5s ease, filter 0.5s ease;
+}
+
+.banner-grid .panel {
+  transition: transform 0.4s ease;
+}
+
+.banner-grid .panel:hover {
+  transform: scale(1.02);
+  z-index: 2;
 }
 
 /* MODAL */
@@ -292,19 +364,25 @@ body {
     <div class="card-item" onclick="openProject(0)">
       <img src="/image/imag1.png">
       <h3>AI 연애 시뮬레이션</h3>
-      <p>LLM 기반 감정 대화 시스템</p>
+      <p>LLM 기반 대화형 시뮬레이션 서비스로, 연인과 대화하는 듯한 감정적 경험을 제공하는 AI 인터랙션 시스템입니다.
+네이버 Clova 기반 경량 LLM을 활용해 온디바이스 환경에서도 동작하도록 최적화했으며, 파인튜닝으로 연인 대화 스타일을 학습시켰습니다.
+감정 분석을 통해 사용자 상태에 따라 응답 톤을 조절하고, 2D 라이브 모델링으로 시각적 몰입감을 강화했습니다.</p>
     </div>
 
     <div class="card-item" onclick="openProject(1)">
       <img src="/image/imag2.png">
       <h3>서울 보행량 예측</h3>
-      <p>LightGBM 기반 도시 분석</p>
+      <p>서울시 보행량 데이터를 기반으로 건축 및 사회·경제적 요인이 변화했을 때 가로 단위 보행량 변화를 예측하는 머신러닝 모델을 개발했습니다.
+LightGBM 기반 모델을 활용해 주요 변수 중요도를 반영하고 성능을 최적화하여 예측 정확도를 개선했습니다.
+해당 연구는 도시 공간 변화와 보행 행태 간 관계를 정량적으로 분석한 모델로 특허 출원까지 진행되었습니다.</p>
     </div>
 
     <div class="card-item" onclick="openProject(2)">
       <img src="/image/imag3.png">
       <h3>AI 자세 교정</h3>
-      <p>MediaPipe 기반 실시간 분석</p>
+      <p>MediaPipe를 활용해 관절 포인트를 추출하고 스쿼트, 런지 등 운동 동작의 관절 각도를 분석하는 자세 교정 서비스를 개발했습니다.
+올바른 자세 판별을 위해 머신러닝 기반 앙상블 모델을 파인튜닝하여 자세 정확도를 분류하고, 실시간 피드백이 가능하도록 설계했습니다.
+또한 분석 결과를 자동으로 보고서화하고 음성 피드백 기능을 추가해 사용자 경험을 강화했습니다.</p>
     </div>
 
   </div>
