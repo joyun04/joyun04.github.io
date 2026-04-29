@@ -2,83 +2,71 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <title>yunjo Portfolio</title>
+  <title>Access Restricted</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
       margin: 0;
-      background: #f5f5f5;
-    }
-    header {
-      background: #222;
-      color: white;
-      padding: 40px;
+      background: #0d0d0d;
+      color: #eaeaea;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
       text-align: center;
     }
-    section {
-      padding: 40px;
-      max-width: 800px;
-      margin: auto;
-      background: white;
+
+    .container {
+      max-width: 600px;
+    }
+
+    h1 {
+      font-size: 40px;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    p {
+      color: #888;
+      margin-bottom: 30px;
+    }
+
+    .status {
+      color: #00ff9c;
       margin-bottom: 20px;
-      border-radius: 10px;
     }
-    h2 {
-      border-bottom: 2px solid #ddd;
-      padding-bottom: 10px;
-    }
-    .project {
-      margin-bottom: 20px;
-    }
-    a {
-      color: #0077cc;
+
+    .btn {
+      border: 1px solid #00ff9c;
+      padding: 10px 20px;
+      color: #00ff9c;
       text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #00ff9c;
+      color: #000;
+    }
+
+    .blink {
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
     }
   </style>
 </head>
 
 <body>
+  <div class="container">
+    <h1>ACCESS DENIED<span class="blink">_</span></h1>
+    <p>This site is currently under construction.</p>
 
-<header>
-  <h1>👋 안녕하세요, yunjo입니다</h1>
-  <p>데이터 분석 & AI 개발자</p>
-</header>
+    <div class="status">● STATUS: ACTIVE DEVELOPMENT</div>
 
-<section>
-  <h2>📌 About Me</h2>
-  <p>
-    도시빅데이터를 기반으로 데이터 분석과 AI 모델 개발을 공부하고 있습니다.
-    문제 해결 중심의 프로젝트를 진행하며 실무 역량을 키우고 있습니다.
-  </p>
-</section>
-
-<section>
-  <h2>🚀 Projects</h2>
-
-  <div class="project">
-    <h3>📊 건축물 데이터 분석</h3>
-    <p>서울 건축물 데이터를 활용한 공간 분석 프로젝트</p>
-    <a href="#">GitHub 보기</a>
+    <a href="https://github.com/아이디" class="btn">VIEW GITHUB</a>
   </div>
-
-  <div class="project">
-    <h3>🤖 AI 자세 교정 서비스</h3>
-    <p>MediaPipe 기반 자세 분석 웹 서비스</p>
-    <a href="#">GitHub 보기</a>
-  </div>
-
-</section>
-
-<section>
-  <h2>🛠 Skills</h2>
-  <p>Python, R, SQL, Git, Machine Learning</p>
-</section>
-
-<section>
-  <h2>📫 Contact</h2>
-  <p>Email: your@email.com</p>
-  <p>GitHub: <a href="https://github.com/아이디">https://github.com/아이디</a></p>
-</section>
-
 </body>
 </html>
